@@ -1,4 +1,4 @@
-package com.openclassrooms.Chatop.datatransferobjects;
+package com.openclassrooms.Chatop.datatTansferObjects;
 
 import com.openclassrooms.Chatop.model.Role;
 

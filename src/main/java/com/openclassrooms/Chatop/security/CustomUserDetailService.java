@@ -1,4 +1,4 @@
-package com.openclassrooms.Chatop.service;
+package com.openclassrooms.Chatop.security;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

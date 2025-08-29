@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtUtil {
 	
+	//init from app.properties
 	@Value("${jwt.secret}")
 	private String secretKey;
 	
@@ -26,6 +27,7 @@ public class JwtUtil {
 	private SecretKey key;
 	private JwtParser parser;
 	
+	//Constructor
 	@PostConstruct
 	public void init() {
 		this.key = Keys.hmacShaKeyFor(secretKey.getBytes());
