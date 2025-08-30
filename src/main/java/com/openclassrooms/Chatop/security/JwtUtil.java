@@ -38,7 +38,6 @@ public class JwtUtil {
 		
 		return Jwts.builder()
 				.subject(email)
-				.claim("role", role)
 				.issuedAt(new Date())
 				.expiration(new Date(System.currentTimeMillis() + expiration))
 				.signWith(key, Jwts.SIG.HS256)
@@ -51,14 +50,6 @@ public class JwtUtil {
 				.parseSignedClaims(token)
 				.getPayload()
 		        .getSubject();
-	}
-	
-	public String extractRole(String token) {
-		  
-	   return (String) parser
-			   .parseSignedClaims(token)
-			   .getPayload()
-			   .get("role");
 	}
 
 }
