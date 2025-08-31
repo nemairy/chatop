@@ -38,16 +38,14 @@ public class SecurityConfig {
 		.requestMatchers("/", "/auth/login", "/auth/register").permitAll()
 		.anyRequest().authenticated()
 		)
-		.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+		.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 		
-		//OAuth2 login
-		.oauth2Login(oauth2 -> oauth2
-				     .loginPage("/auth/login")
-				     .defaultSuccessUrl("/rentals", true))
-		
-		.logout(logout -> logout
-				.logoutSuccessUrl("/").permitAll()
-		);
+		/*
+		 * //OAuth2 login .oauth2Login(oauth2 -> oauth2 .loginPage("/auth/login")
+		 * .defaultSuccessUrl("/rentals", true))
+		 * 
+		 * .logout(logout -> logout .logoutSuccessUrl("/").permitAll() )
+		 */
 		
 		return http.build();
 		

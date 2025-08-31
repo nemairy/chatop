@@ -4,8 +4,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.Chatop.DTOs.*;
-import com.openclassrooms.Chatop.configuration.SecurityConfig;
-import com.openclassrooms.Chatop.datatTansferObjects.AuthResponse;
 import com.openclassrooms.Chatop.model.UserN;
 import com.openclassrooms.Chatop.repository.UserRepository;
 import com.openclassrooms.Chatop.security.JwtUtil;
@@ -18,7 +16,7 @@ public class AuthService {
 	
 	private final UserRepository repository;
 	private final JwtUtil jwtUtil;
-	 private final PasswordEncoder encoder;
+	private final PasswordEncoder encoder;
 	
 	public void register(UserRegisterDto regisRequest) {
 		if(repository.findByEmail(regisRequest.getEmail()).isPresent()) {
