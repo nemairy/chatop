@@ -34,7 +34,7 @@ public class JwtUtil {
 		this.parser = Jwts.parser().verifyWith(key).build();
 	}
 	
-	public String generateToken(String email, String role) {
+	public String generateToken(String email) {
 		
 		return Jwts.builder()
 				.subject(email)
