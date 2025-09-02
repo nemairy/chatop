@@ -1,6 +1,7 @@
 package com.openclassrooms.Chatop.security;
 
 import java.io.IOException;
+import java.util.Collections;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,6 +32,12 @@ public class JwtAuthFilter extends OncePerRequestFilter{
 		String email = null;
 		String token = null;
 		
+		String path = request.getServletPath();
+	    if (path.startsWith("/auth/login") || path.startsWith("/auth/register")) {
+	        chain.doFilter(request, response); // skip JWT check
+	        return;
+	    }
+		
 		if(authHeader != null && authHeader.startsWith("Bearer ")) {
 			token = authHeader.substring(7);
 			email = jwtUtil.extractEmail(token);
@@ -41,17 +48,17 @@ public class JwtAuthFilter extends OncePerRequestFilter{
 			
 			if(userDetails != null) {
 				UsernamePasswordAuthenticationToken authToken = 
-						new UsernamePasswordAuthenticationToken(userDetails,null, userDetails.getAuthorities());
+						new UsernamePasswordAuthenticationToken(userDetails,null, Collections.emptyList());
 				
 				authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				SecurityContextHolder.getContext().setAuthentication(authToken);
 				
 			}
 			
-			chain.doFilter(request, response);
+			
 		}
 		
-		
+		chain.doFilter(request, response);
 		
 	}
 

@@ -11,17 +11,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-
 import com.openclassrooms.Chatop.security.CustomUserDetailService;
 import com.openclassrooms.Chatop.security.JwtAuthFilter;
-import com.openclassrooms.Chatop.security.JwtUtil;
 
-import lombok.RequiredArgsConstructor;
+
+
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
 	
 	@Autowired

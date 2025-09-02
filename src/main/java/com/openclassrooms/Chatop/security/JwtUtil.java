@@ -1,3 +1,4 @@
+
 package com.openclassrooms.Chatop.security;
 
 
@@ -40,7 +41,7 @@ public class JwtUtil {
 				.subject(email)
 				.issuedAt(new Date())
 				.expiration(new Date(System.currentTimeMillis() + expiration))
-				.signWith(key, Jwts.SIG.HS256)
+				.signWith(key)
 				.compact();		
 	}
 	

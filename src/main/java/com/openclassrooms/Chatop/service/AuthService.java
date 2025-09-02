@@ -19,6 +19,7 @@ public class AuthService {
 	private final PasswordEncoder encoder;
 	
 	public void register(UserRegisterDto regisRequest) {
+		
 		if(repository.findByEmail(regisRequest.getEmail()).isPresent()) {
 			throw new RuntimeException("Email is already exit!");
 		}
@@ -31,17 +32,18 @@ public class AuthService {
 		repository.save(user);
 	}
 	
-	public AuthResponse login(UserLoginDto loginRequest) {
-		UserN user = repository.findByEmail(loginRequest.getEmail())
-				.orElseThrow(() -> new RuntimeException("Email not found!"));
-		
-		if(!encoder.matches(loginRequest.getPassword(), user.getPassword())) {
-			throw new RuntimeException("Wrong password!");
-		}
-		
-		String token = jwtUtil.generateToken(user.getEmail());
-		
-		return new AuthResponse(token);
-	}
-
+	
+	  public AuthResponse login(UserLoginDto loginRequest) { 
+		  
+		  UserN user = repository.findByEmail(loginRequest.getEmail()) 
+				           .orElseThrow(() -> new RuntimeException("Email not found!"));
+	  
+	     if(!encoder.matches(loginRequest.getPassword(), user.getPassword())){
+	    	 throw new RuntimeException("Wrong password!"); }
+	  
+	           String token = jwtUtil.generateToken(user.getEmail());
+	  
+	           return new AuthResponse(token); }
+	 
+	
 }

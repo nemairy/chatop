@@ -1,10 +1,12 @@
 package com.openclassrooms.Chatop.DTOs;
 
-import com.openclassrooms.Chatop.model.Role;
+
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class UserRegisterDto {
 	
 	private String name;
