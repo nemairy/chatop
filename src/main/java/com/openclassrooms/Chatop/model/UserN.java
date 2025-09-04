@@ -1,5 +1,10 @@
 package com.openclassrooms.Chatop.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.Instant;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,22 +15,27 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class UserN {
-	
-	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(nullable=false)
-	private String name;
-	
-	@Column(nullable=false, unique= true)
-	private String email;
-	
-	@Column(nullable=false)
-	private String password;
-	
-	
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@Column(nullable = false)
+	private String name;
+
+	@Column(nullable = false, unique = true)
+	private String email;
+
+	@Column(nullable = false)
+	private String password;
+
+	@Column(name = "created_at", updatable = false)
+	@CreationTimestamp
+	private Instant createdAt;
+
+	@Column(name = "updated_at")
+	@UpdateTimestamp
+	private Instant updatedAt;
 }
