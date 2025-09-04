@@ -1,3 +1,4 @@
+
 package com.openclassrooms.Chatop.security;
 
 
@@ -34,13 +35,13 @@ public class JwtUtil {
 		this.parser = Jwts.parser().verifyWith(key).build();
 	}
 	
-	public String generateToken(String email, String role) {
+	public String generateToken(String email) {
 		
 		return Jwts.builder()
 				.subject(email)
 				.issuedAt(new Date())
 				.expiration(new Date(System.currentTimeMillis() + expiration))
-				.signWith(key, Jwts.SIG.HS256)
+				.signWith(key)
 				.compact();		
 	}
 	

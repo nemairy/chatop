@@ -1,4 +1,4 @@
-package com.openclassrooms.Chatop.datatTansferObjects;
+package com.openclassrooms.Chatop.DTOs;
 
 import lombok.Data;
 
