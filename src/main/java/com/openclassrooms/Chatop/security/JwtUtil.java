@@ -1,3 +1,4 @@
+
 package com.openclassrooms.Chatop.security;
 
 
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtUtil {
 	
+	//init from app.properties
 	@Value("${jwt.secret}")
 	private String secretKey;
 	
@@ -26,20 +28,20 @@ public class JwtUtil {
 	private SecretKey key;
 	private JwtParser parser;
 	
+	//Constructor
 	@PostConstruct
 	public void init() {
 		this.key = Keys.hmacShaKeyFor(secretKey.getBytes());
 		this.parser = Jwts.parser().verifyWith(key).build();
 	}
 	
-	public String generateToken(String email, String role) {
+	public String generateToken(String email) {
 		
 		return Jwts.builder()
 				.subject(email)
-				.claim("role", role)
 				.issuedAt(new Date())
 				.expiration(new Date(System.currentTimeMillis() + expiration))
-				.signWith(key, Jwts.SIG.HS256)
+				.signWith(key)
 				.compact();		
 	}
 	
@@ -49,14 +51,6 @@ public class JwtUtil {
 				.parseSignedClaims(token)
 				.getPayload()
 		        .getSubject();
-	}
-	
-	public String extractRole(String token) {
-		  
-	   return (String) parser
-			   .parseSignedClaims(token)
-			   .getPayload()
-			   .get("role");
 	}
 
 }

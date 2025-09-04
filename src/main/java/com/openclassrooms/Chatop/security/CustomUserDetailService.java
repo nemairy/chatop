@@ -1,4 +1,4 @@
-package com.openclassrooms.Chatop.service;
+package com.openclassrooms.Chatop.security;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,7 +26,6 @@ public class CustomUserDetailService implements UserDetailsService {
 		return User
 				.withUsername(user.getEmail())
 				.password(user.getPassword())
-				.roles(user.getRole().name())
 				.build();
 	}
 
