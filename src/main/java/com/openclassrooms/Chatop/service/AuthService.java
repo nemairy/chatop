@@ -51,10 +51,13 @@ public class AuthService {
 
 	public MeResponse me(String email) {
 
-		var user = repository.findByEmail(email)
+		UserN user = repository.findByEmail(email)
 				.orElseThrow(() -> new RuntimeException("User not founds!"));
 
-		return new MeResponse(user.getId(), user.getName(), user.getEmail());
+		return new MeResponse(user.getId(), 
+				              user.getName(), 
+				              user.getEmail(),
+				              user.getCreatedAt(),
+			                  user.getUpdatedAt());
 	}
-
 }
