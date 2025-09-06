@@ -11,13 +11,19 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MeResponse {
+public class RentalDto {
 	
 	private Long id;
 	private String name;
-	private String email;
+	private Integer surface;
+	private Integer price;
+	private String picture;
+	private String description;
 	
-	@JsonProperty("created_at")
+	@JsonProperty("owner_id")
+	private Long ownerId;
+	
+	@JsonProperty("created-at")
 	private Instant createdAt;
 	
 	@JsonProperty("updated_at")
