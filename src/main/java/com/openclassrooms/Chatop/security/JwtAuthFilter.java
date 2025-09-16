@@ -32,7 +32,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 		String token = null;
 
 		String path = request.getServletPath();
-		if (path.startsWith("/auth/login") || path.startsWith("/auth/register")) {
+		if (path.startsWith("/auth/login") || path.startsWith("/auth/register") 
+		   ||path.startsWith("/login") || path.startsWith("/register")) {
 			chain.doFilter(request, response); // skip JWT check
 			return;
 		}
