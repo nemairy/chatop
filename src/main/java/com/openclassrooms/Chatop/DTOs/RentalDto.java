@@ -23,7 +23,7 @@ public class RentalDto {
 	@JsonProperty("owner_id")
 	private Long ownerId;
 	
-	@JsonProperty("created-at")
+	@JsonProperty("created_at")
 	private Instant createdAt;
 	
 	@JsonProperty("updated_at")
