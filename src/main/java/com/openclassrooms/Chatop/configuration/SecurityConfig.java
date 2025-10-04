@@ -32,17 +32,12 @@ public class SecurityConfig {
 		http
 		.csrf(csrf -> csrf.disable())
 		.authorizeHttpRequests(auth -> auth
-		.requestMatchers("/", "/auth/login", "/auth/register", "/login", "/register").permitAll()
+		.requestMatchers("/", "/auth/login", "/auth/register", "/login", "/register",
+				         "/uploads/**", "/api/uploads/**",
+				         "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
 		.anyRequest().authenticated()
 		)
 		.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-		
-		/*
-		 * //OAuth2 login .oauth2Login(oauth2 -> oauth2 .loginPage("/auth/login")
-		 * .defaultSuccessUrl("/rentals", true))
-		 * 
-		 * .logout(logout -> logout .logoutSuccessUrl("/").permitAll() )
-		 */
 		
 		return http.build();
 		

@@ -63,8 +63,8 @@ public class FileStorageService {
 		}
 
 		// Build an absolute URL
-		String base = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
-		return base + "/api/uploads/" + safe;
+		//String base = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+		return "/uploads/" + safe;
 	}
 
 }

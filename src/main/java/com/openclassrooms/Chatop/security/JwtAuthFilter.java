@@ -22,48 +22,54 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
 	private final JwtUtil jwtUtil;
 	private final CustomUserDetailService myUserDetails;
+	
+	@Override
+	protected boolean shouldNotFilter(HttpServletRequest request) {
+		String path = request.getRequestURI();
+		return path.startsWith("/auth/login") 
+			|| path.startsWith("/auth/register") 
+		    || path.startsWith("/login")
+		    || path.startsWith("/register")
+		    || path.startsWith("/uploads/")
+		    || path.startsWith("/api/uploads/**")
+		    || path.startsWith("/v3/api-docs")
+		    || path.startsWith("/swagger-ui") ;
+			
+	}
 
 	// Pass the Http requests and responses throw the filter chain
-	public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+	@Override
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
 
 		String authHeader = request.getHeader("Authorization");
-		String email = null;
-		String token = null;
 
-		String path = request.getServletPath();
-		if (path.startsWith("/auth/login") || path.startsWith("/auth/register") 
-		   ||path.startsWith("/login") || path.startsWith("/register")) {
-			chain.doFilter(request, response); // skip JWT check
-			return;
+		if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+			chain.doFilter(request, response);
+			return; // no token? just continue
 		}
 
-		if (authHeader != null && authHeader.startsWith("Bearer ")) {
-			token = authHeader.substring(7);
-			try {
-                email = jwtUtil.extractEmail(token); 
-            } catch (Exception ex) {
-              System.out.println("JWT parser error: " + ex.getMessage());
-            }
-		 }
-		
-		//Set authentication in the securityContext if not already set
-		if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-			UserDetails userDetails = myUserDetails.loadUserByUsername(email);
+		// Set authentication in the securityContext if not already set
+		String token = authHeader.substring(7);
+		try {
+			String email = jwtUtil.extractEmail(token);
 
-			if (userDetails != null) {
+			if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+				UserDetails userDetails = myUserDetails.loadUserByUsername(email);
+
 				UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,
-						null, Collections.emptyList());
+						null, userDetails.getAuthorities());
 
 				authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				SecurityContextHolder.getContext().setAuthentication(authToken);
-
 			}
-
+		} catch (Exception exception) {
+			SecurityContextHolder.clearContext();
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			return;
 		}
 
 		chain.doFilter(request, response);
-
 	}
 
 }
