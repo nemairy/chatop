@@ -17,4 +17,14 @@ public class GlobalExceptionHandler {
 				.body(Map.of("error", ex.getReason() == null ? "Error" : ex.getReason()));
 	}
 
+	@ExceptionHandler(UserNotFoundException.class)
+	public ResponseEntity<Map<String, String>> handleUserNotFound(UserNotFoundException ex) {
+		return ResponseEntity.status(404).body(Map.of("error", ex.getMessage()));
+	}
+
+	@ExceptionHandler(RentalNotFoundException.class)
+	public ResponseEntity<Map<String, String>> handleRentalNotFound(RentalNotFoundException ex) {
+		return ResponseEntity.status(404).body(Map.of("error", ex.getMessage()));
+	}
+
 }

@@ -14,6 +14,8 @@ import com.openclassrooms.Chatop.service.api.RentalService;
 import com.openclassrooms.Chatop.DTOs.*;
 import com.openclassrooms.Chatop.model.Rental;
 import com.openclassrooms.Chatop.model.UserN;
+import com.openclassrooms.Chatop.exception.UserNotFoundException;
+import com.openclassrooms.Chatop.exception.RentalNotFoundException;
 
 @Service
 public class RentalServiceImple implements RentalService {
@@ -31,14 +33,13 @@ public class RentalServiceImple implements RentalService {
 	}
 
 	public RentalDto getById(Long id) {
-		Rental rental = rentRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "rental not found"));
-
+		Rental rental = rentRepository.findById(id).orElseThrow(() -> new RentalNotFoundException("Rental not found"));
 		return mapToDto(rental);
 	}
 
 	@Transactional
 	public RentalDto createRental(String email, RentalCreUpDto dto) {
-		UserN owner = userRepository.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found!"));
+		UserN owner = userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException("User not found!"));
 
 		Rental rental = new Rental();
 		rental.setName(dto.getName());
@@ -54,7 +55,7 @@ public class RentalServiceImple implements RentalService {
 
 	@Transactional
 	public RentalDto updateRental(Long id, RentalCreUpDto dto) {
-		Rental rental = rentRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Rental not found!" + id));
+		Rental rental = rentRepository.findById(id).orElseThrow(() -> new RentalNotFoundException("Rental not found! " + id));
 
 		// Make sur the fields are not blank before setting
 		if (dto.getName() != null)
