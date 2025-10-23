@@ -1,10 +1,9 @@
 # Chatop
 
-Chatop is a Spring Boot-based REST API for managing rental listings, user authentication, and file uploads. It uses MySQL for data persistence and supports OAuth2 login via GitHub. The project includes JWT-based security and Swagger/OpenAPI documentation.
+Chatop is a Spring Boot-based REST API for managing rental listings, user authentication, and file uploads. It uses MySQL for data persistence and supports JWT-based security and Swagger/OpenAPI documentation.
 
 ## Features
 - User registration and authentication (JWT)
-- OAuth2 login with GitHub
 - CRUD operations for rental listings
 - File upload support (images)
 - API documentation with Swagger UI
@@ -48,8 +47,8 @@ Swagger UI: [http://localhost:9006/swagger-ui.html](http://localhost:9006/swagge
 ## File Uploads
 Uploaded files are stored in the `uploads/` directory. Max file size: 10MB.
 
-## Exception Handling
-Global exception handling is provided for all controllers.
+## Author
+Abubaker Nemairy
 
 ## License
 This project is for educational purposes (OpenClassrooms).

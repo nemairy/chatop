@@ -35,8 +35,7 @@ public class SecurityConfig {
 		.requestMatchers("/", "/auth/login", "/auth/register", "/login", "/register",
 				         "/uploads/**", "/api/uploads/**",
 				         "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
-		.anyRequest().authenticated()
-		)
+		.anyRequest().authenticated())
 		.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 		
 		return http.build();
