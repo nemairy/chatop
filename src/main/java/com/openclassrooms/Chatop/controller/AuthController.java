@@ -33,9 +33,21 @@ public class AuthController {
 		return authService.login(loginRequest);
 	}
 
-	@GetMapping("/auth/me")
+	@GetMapping({"/auth/me", "/me"})
 	public MeResponse me(Authentication auth) {
 		String email = auth.getName();
 		return authService.me(email);
+	}
+    
+	//aliases
+	@PostMapping("/login")
+	public AuthResponse loginAlias(@RequestBody UserLoginDto loginRequest) {
+		return authService.login(loginRequest);
+	}
+
+	@PostMapping("/register")
+	public String registerAlias(@RequestBody UserRegisterDto regisRequest) {
+		authService.register(regisRequest);
+		return "User registered successfully";
 	}
 }

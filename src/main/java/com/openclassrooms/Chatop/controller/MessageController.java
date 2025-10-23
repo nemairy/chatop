@@ -19,7 +19,7 @@ public class MessageController {
 	@Autowired
 	private MessageService service;
 	
-	@PostMapping("/message")
+	@PostMapping("/messages")
 	public Map<String, String> create(Authentication auth, @Valid @RequestBody MessageDto dto){
 		String authorEmail = auth.getName();
 		String sentResult = service.messageCreate(authorEmail, dto);
