@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.openclassrooms.Chatop.DTOs.MessageDto;
-import com.openclassrooms.Chatop.service.MessageService;
+import com.openclassrooms.Chatop.service.api.MessageService;
 
 import jakarta.validation.Valid;
 
