@@ -2,9 +2,11 @@ package com.openclassrooms.Chatop.service.imple;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.openclassrooms.Chatop.service.api.MessageService;
 import com.openclassrooms.Chatop.DTOs.MessageDto;
 import com.openclassrooms.Chatop.model.Message;
 import com.openclassrooms.Chatop.model.Rental;
@@ -13,7 +15,8 @@ import com.openclassrooms.Chatop.repository.MessageRepository;
 import com.openclassrooms.Chatop.repository.RentalRepository;
 import com.openclassrooms.Chatop.repository.UserRepository;
 
-public class MessageServiceImple {
+@Service
+public class MessageServiceImple implements MessageService {
 	
 	@Autowired
 	private MessageRepository msgRepo;
