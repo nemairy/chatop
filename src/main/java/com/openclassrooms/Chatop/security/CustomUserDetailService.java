@@ -15,7 +15,7 @@ import com.openclassrooms.Chatop.repository.UserRepository;
 
 @Service
 public class CustomUserDetailService implements UserDetailsService {
-    
+
 	@Autowired
 	private UserRepository userRepository;
 

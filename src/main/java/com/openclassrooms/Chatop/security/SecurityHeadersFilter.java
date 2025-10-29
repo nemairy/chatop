@@ -18,9 +18,9 @@ public class SecurityHeadersFilter extends OncePerRequestFilter {
 
 	    // set before the handler writes the body
 	    if (req.getRequestURI().startsWith("/uploads/") || req.getRequestURI().startsWith("/api/uploads/")){
-	      res.setHeader("Cross-Origin-Resource-Policy", "cross-origin"); 
+	      res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
 	      res.setHeader("Vary", "Origin");
-	      
+
 	      String origin = req.getHeader("Origin");
 	      if ("http://localhost:4200".equals(origin)) {
 	        res.setHeader("Access-Control-Allow-Origin", origin);
@@ -28,5 +28,5 @@ public class SecurityHeadersFilter extends OncePerRequestFilter {
 	    }
 	    chain.doFilter(req, res);
 	  }
-	
+
 }

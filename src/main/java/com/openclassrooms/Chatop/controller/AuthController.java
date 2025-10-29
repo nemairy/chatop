@@ -11,7 +11,7 @@ import com.openclassrooms.Chatop.DTOs.AuthResponse;
 import com.openclassrooms.Chatop.DTOs.MeResponse;
 import com.openclassrooms.Chatop.DTOs.UserLoginDto;
 import com.openclassrooms.Chatop.DTOs.UserRegisterDto;
-import com.openclassrooms.Chatop.service.AuthService;
+import com.openclassrooms.Chatop.service.imple.AuthServiceImpe;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,35 +19,24 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthController {
 
-	private final AuthService authService;
+	private final AuthServiceImpe authService;
 
-	@PostMapping("/auth/register")
-	public String register(@RequestBody UserRegisterDto regisRequest) {
-		authService.register(regisRequest);
-		return "User registered successfully";
+	@PostMapping({"/register","/auth/register"})
+	public AuthResponse register(@RequestBody UserRegisterDto regisRequest) {
+	
+		return authService.register(regisRequest);
 	}
 
-	@PostMapping("/auth/login")
+	@PostMapping({"/login","/auth/login"})
 	public AuthResponse login(@RequestBody UserLoginDto loginRequest) {
 
 		return authService.login(loginRequest);
 	}
 
-	@GetMapping({"/auth/me", "/me"})
+	@GetMapping({"/me","/auth/me"})
 	public MeResponse me(Authentication auth) {
 		String email = auth.getName();
 		return authService.me(email);
 	}
-    
-	//aliases
-	@PostMapping("/login")
-	public AuthResponse loginAlias(@RequestBody UserLoginDto loginRequest) {
-		return authService.login(loginRequest);
-	}
 
-	@PostMapping("/register")
-	public String registerAlias(@RequestBody UserRegisterDto regisRequest) {
-		authService.register(regisRequest);
-		return "User registered successfully";
-	}
 }

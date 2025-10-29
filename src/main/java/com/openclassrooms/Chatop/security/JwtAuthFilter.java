@@ -1,7 +1,6 @@
 package com.openclassrooms.Chatop.security;
 
 import java.io.IOException;
-import java.util.Collections;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,19 +21,19 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
 	private final JwtUtil jwtUtil;
 	private final CustomUserDetailService myUserDetails;
-	
+
 	@Override
 	protected boolean shouldNotFilter(HttpServletRequest request) {
 		String path = request.getRequestURI();
-		return path.startsWith("/auth/login") 
-			|| path.startsWith("/auth/register") 
+		return path.startsWith("/auth/login")
+			|| path.startsWith("/auth/register")
 		    || path.startsWith("/login")
 		    || path.startsWith("/register")
 		    || path.startsWith("/uploads/")
 		    || path.startsWith("/api/uploads/**")
 		    || path.startsWith("/v3/api-docs")
 		    || path.startsWith("/swagger-ui") ;
-			
+
 	}
 
 	// Pass the Http requests and responses throw the filter chain

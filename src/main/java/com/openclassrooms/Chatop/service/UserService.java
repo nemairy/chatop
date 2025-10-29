@@ -14,11 +14,11 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	public MeResponse getPublicUser(Long id) {
 		UserN user = userRepository.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"+ id));
-		
+
 		return new MeResponse(
 				user.getId(),
 				user.getName(),
