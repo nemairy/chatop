@@ -6,7 +6,7 @@ import com.openclassrooms.Chatop.DTOs.RentalCreUpDto;
 import com.openclassrooms.Chatop.DTOs.RentalDto;
 
 public interface RentalService {
-	
+
 	  List<RentalDto> rentList();
 	  RentalDto getById(Long id);
 	  RentalDto createRental(String ownerEmail, RentalCreUpDto in);

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RentalCreUpDto {
-	
+
 	private String name;
 	private Integer surface;
 	private Integer price;

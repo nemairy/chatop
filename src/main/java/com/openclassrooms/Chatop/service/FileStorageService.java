@@ -1,5 +1,6 @@
 package com.openclassrooms.Chatop.service;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,11 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import lombok.RequiredArgsConstructor;
-
-import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
@@ -26,9 +24,9 @@ public class FileStorageService {
 	@Value("${app.upload.dir:uploads}")
 	private String uploadDir;
 
-	
+
 	 //Stores the file on disk and returns the public url
-	 
+
 	public String storeAndGetPublicUrl(MultipartFile file) {
 		if (file == null || file.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "picture is required");
@@ -48,7 +46,7 @@ public class FileStorageService {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Could not create upload directory");
 		}
 
-		// Make a safe unique filename 
+		// Make a safe unique filename
 		String original = file.getOriginalFilename() == null ? "image" : file.getOriginalFilename();
 		String ext = original.contains(".") ? original.substring(original.lastIndexOf('.')) : "";
 		String safe = UUID.randomUUID() + ext.replaceAll("[^\\.a-zA-Z0-9_-]", "");

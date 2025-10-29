@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.openclassrooms.Chatop.service.api.MessageService;
 import com.openclassrooms.Chatop.DTOs.MessageDto;
 import com.openclassrooms.Chatop.model.Message;
 import com.openclassrooms.Chatop.model.Rental;
@@ -14,10 +13,11 @@ import com.openclassrooms.Chatop.model.UserN;
 import com.openclassrooms.Chatop.repository.MessageRepository;
 import com.openclassrooms.Chatop.repository.RentalRepository;
 import com.openclassrooms.Chatop.repository.UserRepository;
+import com.openclassrooms.Chatop.service.api.MessageService;
 
 @Service
 public class MessageServiceImple implements MessageService {
-	
+
 	@Autowired
 	private MessageRepository msgRepo;
 
@@ -27,6 +27,7 @@ public class MessageServiceImple implements MessageService {
 	@Autowired
 	private UserRepository userRepo;
 
+	@Override
 	@Transactional
 	public String messageCreate(String authorEmail, MessageDto dto) {
 		UserN user = userRepo.findByEmail(authorEmail)

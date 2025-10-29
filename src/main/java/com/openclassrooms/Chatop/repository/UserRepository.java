@@ -9,7 +9,7 @@ import com.openclassrooms.Chatop.model.UserN;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserN, Long>{
-	
+
 	Optional<UserN> findByEmail(String email);
 
 }

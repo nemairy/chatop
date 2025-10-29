@@ -10,14 +10,14 @@ import com.openclassrooms.Chatop.service.UserService;
 
 @RestController
 public class UserController {
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@GetMapping("/user/{id}")
 	public MeResponse getUser(@PathVariable Long id) {
 		return userService.getPublicUser(id);
 	}
-	
+
 
 }

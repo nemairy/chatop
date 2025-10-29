@@ -11,30 +11,30 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class StaticResourceConfig implements WebMvcConfigurer{
-	
+
 	@Value("${app.upload.dir:uploads}")
 	private String uploadDir;
-	
+
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		
+
 		Path rootPath = Paths.get(uploadDir).toAbsolutePath().normalize();
-		
+
 	    String location = rootPath.toUri().toString();
 	    registry.addResourceHandler("/uploads/**")
 	            .addResourceLocations(location);
-	    
+
 	    registry.addResourceHandler("/api/uploads/**")
 	            .addResourceLocations(location);
 	}
-	
+
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/uploads/**")
 		        .allowedOrigins("http://localhost:4200")
 		        .allowedMethods("GET")
 		        .allowCredentials(false);
-		
+
 	}
 
 }

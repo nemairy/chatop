@@ -3,11 +3,6 @@ package com.openclassrooms.Chatop.controller;
 import java.util.List;
 import java.util.Map;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -26,13 +21,19 @@ import com.openclassrooms.Chatop.DTOs.RentalDto;
 import com.openclassrooms.Chatop.service.FileStorageService;
 import com.openclassrooms.Chatop.service.api.RentalService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 
 @RestController
 public class RentalController {
 
 	@Autowired
 	private RentalService service;
-	
+
 	@Autowired
 	private FileStorageService fileStorage;
 
@@ -52,15 +53,24 @@ public class RentalController {
 	public RentalDto getById(@PathVariable Long id) {
 		return service.getById(id);
 	}
-
-	@PostMapping("/rentals")
-	@Operation(summary = "Create a new rental", description = "Creates a new rental with the provided details.", responses = {
-			@ApiResponse(responseCode = "201", description = "Rental created successfully", content = @Content(schema = @Schema(implementation = RentalDto.class))),
-			@ApiResponse(responseCode = "400", description = "Invalid input data", content = @Content()),
-			@ApiResponse(responseCode = "401", description = "User is unauthorized", content = @Content()) }, security = @SecurityRequirement(name = "bearerAuth"))
-	public RentalDto create(Authentication auth, @RequestBody RentalCreUpDto dto) {
-		return service.createRental(auth.getName(), dto);
-	}
+	/*
+	 * @PostMapping("/rentals")
+	 *
+	 * @Operation(summary = "Create a new rental", description =
+	 * "Creates a new rental with the provided details.", responses = {
+	 *
+	 * @ApiResponse(responseCode = "201", description =
+	 * "Rental created successfully", content = @Content(schema
+	 * = @Schema(implementation = RentalDto.class))),
+	 *
+	 * @ApiResponse(responseCode = "400", description = "Invalid input data",
+	 * content = @Content()),
+	 *
+	 * @ApiResponse(responseCode = "401", description = "User is unauthorized",
+	 * content = @Content()) }, security = @SecurityRequirement(name =
+	 * "bearerAuth")) public RentalDto create(Authentication auth, @RequestBody
+	 * RentalCreUpDto dto) { return service.createRental(auth.getName(), dto); }
+	 */
 
 	// Multipart create version
 	@PostMapping(value = "/rentals", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -70,7 +80,7 @@ public class RentalController {
 			@ApiResponse(responseCode = "401", description = "User is unauthorized", content = @Content()) }, security = @SecurityRequirement(name = "bearerAuth"))
 	public RentalDto createMultipart(Authentication auth,
 			@RequestParam("name") String name,
-			@RequestParam("surface") Integer surface, 
+			@RequestParam("surface") Integer surface,
 			@RequestParam("price") Integer price,
 			@RequestPart("picture") MultipartFile picture,
 			@RequestParam(value = "description", required = false) String description) {
@@ -82,7 +92,7 @@ public class RentalController {
 		in.setName(name);
 		in.setSurface(surface);
 		in.setPrice(price);
-		in.setPicture(pictureUrl); 
+		in.setPicture(pictureUrl);
 		in.setDescription(description);
 
 		return service.createRental(auth.getName(), in);
@@ -97,7 +107,7 @@ public class RentalController {
 	public RentalDto update(@PathVariable Long id, @RequestBody RentalCreUpDto dto) {
 		return service.updateRental(id, dto);
 	}
-	
+
 	@PutMapping(value = "/rentals/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@Operation(summary = "Update a rental with a picture", description = "Updates the details of an existing rental and uploads a new picture if provided.", responses = {
 			@ApiResponse(responseCode = "200", description = "Rental updated successfully", content = @Content(schema = @Schema(implementation = RentalDto.class))),
@@ -110,7 +120,7 @@ public class RentalController {
 			                         @RequestParam(value="price", required = false) Integer price,
 			                         @RequestParam(value="picture", required= false) MultipartFile picture,
 			                         @RequestParam(value= "description", required= false) String description) {
-		
+
 	    RentalCreUpDto in = new RentalCreUpDto();
 	    in.setName(name);
 	    in.setSurface(surface);

@@ -20,27 +20,27 @@ import lombok.Data;
 @Entity
 @Table(name = "rentals")
 public class Rental {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String name;
 	private Integer surface;
 	private Integer price;
 	private String picture;
-	
+
 	@Column(columnDefinition = "TEXT")
 	private String description;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "omner_id", nullable = false)
 	private UserN owner;
-	
+
 	@Column(name = "created_at", updatable = false)
 	@CreationTimestamp
 	private Instant createdAt;
-	
+
 	@Column(name = "updated_at")
 	@UpdateTimestamp
 	private Instant updatedAt;
