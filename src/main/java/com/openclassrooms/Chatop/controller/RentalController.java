@@ -53,25 +53,7 @@ public class RentalController {
 	public RentalDto getById(@PathVariable Long id) {
 		return service.getById(id);
 	}
-	/*
-	 * @PostMapping("/rentals")
-	 *
-	 * @Operation(summary = "Create a new rental", description =
-	 * "Creates a new rental with the provided details.", responses = {
-	 *
-	 * @ApiResponse(responseCode = "201", description =
-	 * "Rental created successfully", content = @Content(schema
-	 * = @Schema(implementation = RentalDto.class))),
-	 *
-	 * @ApiResponse(responseCode = "400", description = "Invalid input data",
-	 * content = @Content()),
-	 *
-	 * @ApiResponse(responseCode = "401", description = "User is unauthorized",
-	 * content = @Content()) }, security = @SecurityRequirement(name =
-	 * "bearerAuth")) public RentalDto create(Authentication auth, @RequestBody
-	 * RentalCreUpDto dto) { return service.createRental(auth.getName(), dto); }
-	 */
-
+	
 	// Multipart create version
 	@PostMapping(value = "/rentals", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@Operation(summary = "Create a new rental with a picture", description = "Creates a new rental with the provided details and uploads a picture.", responses = {
