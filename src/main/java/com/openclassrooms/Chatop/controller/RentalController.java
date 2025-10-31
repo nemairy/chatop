@@ -44,6 +44,7 @@ public class RentalController {
 	public Map<String, List<RentalDto>> rentList() {
 		return Map.of("rentals", service.rentList());
 	}
+	
 
 	@GetMapping("/rentals/{id}")
 	@Operation(summary = "Get rental by ID", description = "Retrieves details of a rental by their unique ID.", responses = {
@@ -54,7 +55,7 @@ public class RentalController {
 		return service.getById(id);
 	}
 	
-	// Multipart create version
+	
 	@PostMapping(value = "/rentals", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@Operation(summary = "Create a new rental with a picture", description = "Creates a new rental with the provided details and uploads a picture.", responses = {
 			@ApiResponse(responseCode = "201", description = "Rental created successfully", content = @Content(schema = @Schema(implementation = RentalDto.class))),
@@ -80,15 +81,7 @@ public class RentalController {
 		return service.createRental(auth.getName(), in);
 	}
 
-	@PutMapping("/rentals/{id}")
-	@Operation(summary = "Update a rental", description = "Updates the details of an existing rental.", responses = {
-			@ApiResponse(responseCode = "200", description = "Rental updated successfully", content = @Content(schema = @Schema(implementation = RentalDto.class))),
-			@ApiResponse(responseCode = "400", description = "Invalid input data", content = @Content()),
-			@ApiResponse(responseCode = "404", description = "Rental not found", content = @Content()),
-			@ApiResponse(responseCode = "401", description = "User is unauthorized", content = @Content()) }, security = @SecurityRequirement(name = "bearerAuth"))
-	public RentalDto update(@PathVariable Long id, @RequestBody RentalCreUpDto dto) {
-		return service.updateRental(id, dto);
-	}
+	
 
 	@PutMapping(value = "/rentals/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@Operation(summary = "Update a rental with a picture", description = "Updates the details of an existing rental and uploads a new picture if provided.", responses = {
